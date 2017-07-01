@@ -1,0 +1,26 @@
+.btn {
+    border: none;
+    background-color: transparent;
+    padding: 0.8rem;
+    border-radius: 2px;
+    cursor: pointer;
+
+    &--primary {
+        background-color: $primary-btn-color;
+        color: #fff;
+
+        &:hover {
+            background-color: darken($primary-btn-color, 10);
+        }
+    }
+
+    &--secondary {
+        border: 1px solid $primary-btn-color;
+        background-color: #fff;
+        color: $primary-btn-color;
+
+        &:hover {
+            background-color: darken(#fff, 10);
+        }
+    }
+}

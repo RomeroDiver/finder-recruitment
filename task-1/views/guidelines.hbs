@@ -1,0 +1,55 @@
+<section class="guidelines">
+    <nav>
+        <ul class="guidelines-routes">
+            {{#each guidelinesRoutes}}
+            <li class="guidelines-routes__item">
+                <a href="/guidelines/{{this.href}}">{{this.title}}</a>
+            </li>
+            {{#ifIsEqual @index 5 }}
+                <li class="guidelines-routes__item guidelines-routes--underlined"></li>
+            {{/ifIsEqual}}
+            {{/each}}
+        </ul>
+    </nav>
+    <article class="guidelines__main">
+        <p>
+            Lorem ipsum dolor sit amet dui sed justo. Sed elementum, sapien tristique lorem. 
+            Maecenas bibendum ac, vehicula libero. Aliquam erat in est massa non eros. 
+            Sed nibh eu fermentum sed, posuere vitae, nunc. Vestibulum leo. 
+            Pellentesque euismod ut, blandit velit sit amet neque. Duis vel ipsum orci, 
+            blandit sem leo luctus et magnis dis parturient montes, nascetur ridiculus mus.
+        </p>
+        <h2>Sub-heading</h2> 
+        <p>
+            Mauris auctor nibh, interdum arcu a nunc ut turpis. Proin faucibus orci luctus augue. 
+            Morbi quam at lacus vitae massa. Ut pretium. Praesent feugiat. Pellentesque habitant morbi 
+            tristique bibendum wisi placerat nisl urna elit, varius nunc, placerat eget, ante. 
+            Integer mi at nulla. Phasellus vestibulum. Cras in faucibus augue. Nulla facilisi. 
+            Morbi mattis. Nunc dictum faucibus orci fermentum ut, ligula. 
+            Cras luctus nec, elementum orci interdum dapibus risus nisl, sollicitudin quis, eleifend vel, 
+            lorem. 
+        </p>
+        <div class="guidelines__box">
+            <button class="btn btn--primary">Read more...</button>
+            <button class="btn btn--secondary">Save progress</button>
+        </div>
+        <p>
+             Vivamus urna turpis egestas. Aenean sed est pretium nec, iaculis arcu elit, 
+             ut aliquet elit. In non sem. Nam dictum vitae, faucibus orci nec leo lobortis cursus 
+             justo euismod eget, molestie vitae, facilisis dignissim massa. Mauris suscipit id, 
+             ullamcorper at, rhoncus nunc, tempus urna nec risus. Sed dignissim. Vivamus vitae ante. 
+             Maecenas in neque ultrices posuere iaculis in, commodo tincidunt tellus. 
+             Quisque ultricies lacinia id, wisi. 
+        </p>
+    </article>
+    <aside>
+        <section class="guidelines__contents">
+            <p class="guidelines__contents__heading">Contents</p>
+            <ul>
+                {{#each guidelinesContents}}
+                    <li class="guidelines__contents__item"><a href="#{{this.target}}">{{this.title}}</a></li>
+                {{/each}}
+            </ul>
+        </section>
+    </aside>
+</section>

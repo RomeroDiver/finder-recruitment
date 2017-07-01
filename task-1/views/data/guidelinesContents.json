@@ -1,0 +1,22 @@
+[
+    {
+        "title": "Section 1",
+        "target": "section-1"
+    },
+    {
+        "title": "Section 2",
+        "target": "section-2"        
+    },
+    {
+        "title": "Section 3",
+        "target": "section-3"        
+    },
+    {
+        "title": "Section 4",
+        "target": "section-4"        
+    },
+    {
+        "title": "Section 5",
+        "target": "section-5"        
+    }
+]

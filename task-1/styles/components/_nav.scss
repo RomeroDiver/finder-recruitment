@@ -1,0 +1,36 @@
+@import "../settings/settings";
+
+.main-nav {
+    border-bottom: $main-nav-border;
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: $main-header-left-padding;
+    padding-right: $main-header-left-padding;    
+    justify-content: space-around;
+
+    &__item {
+        flex: 1 1 0;
+        list-style: none;
+        padding-top: 1rem;
+        padding-bottom: 1rem; 
+        border-right: $main-nav-border;
+        text-align: center;
+
+        &:first-child {
+            border-left: $main-nav-border;
+        }
+
+        & > a {
+            text-decoration: none;
+            color: $main-menu-link-color;
+        }
+
+        & > a:hover {
+            color: lighten($main-menu-link-color, 10);
+        }
+
+        &--active > a {
+            color: white;
+        }
+    }
+}
