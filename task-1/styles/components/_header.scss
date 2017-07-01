@@ -1,0 +1,14 @@
+@import "../settings/settings";
+
+.main-header {
+    background: $header-bg-color;
+    padding-bottom: 1.2rem;
+
+    &__heading {
+        color: #fff;
+        font-weight: 300;
+        margin-bottom: 0;
+        margin-left: $main-header-left-padding;
+        margin-top: 3rem;
+    }
+}
