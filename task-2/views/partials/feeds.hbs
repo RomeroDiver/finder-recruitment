@@ -1,0 +1,19 @@
+<ul class="feeds">
+    {{#each list}}
+        <li class="feed">
+            <div>
+                {{#if this.thumbnail}}
+                    <img class="feed__thumbnail" src="{{this.thumbnail}}">
+                {{else}}
+                    <img class="feed__thumbnail" src="/assets/no-thumb.svg">                
+                {{/if}}
+            </div>
+            <div class="feed__content">
+                <h2 class="feed__heading">
+                    <a href="{{this.url}}" target="_blank" rel="noopener">{{this.title}}</a>
+                </h2>
+                <p class="feed__description">{{this.description}}</p>
+            </div>            
+        </li>
+    {{/each}}
+</ul>

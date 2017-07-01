@@ -1,2 +1,3 @@
 node_modules
-task-1/public
+task-1/public/**/*.css
+task-2/public/**/*.css
