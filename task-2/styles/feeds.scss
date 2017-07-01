@@ -1,5 +1,11 @@
+.feeds {
+    padding: 0;
+    margin: 0;
+}
+
 .feed {
     list-style: none;
+    height: 100px;
     display: flex;
     flex-direction: row;
     margin: 1rem;
@@ -7,8 +13,9 @@
     background-color: #fff;
 
     &__thumbnail {
-        width: 100px;
-        border-radius: 2px;
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
         margin-left: 0.5rem;
         margin-right: 0.5rem;
     }
@@ -17,6 +24,16 @@
         margin: 0;
         font-size: 1.2rem;
         font-weight: 700;
+
+        & > a {
+            text-decoration: none;    
+            color: #3B3B3B;
+        }
+
+        & > a:hover {
+            text-decoration: underline;
+            color: #000;
+        }
     }
 
     &__description {
@@ -27,7 +44,6 @@
 
     &__link {
         font-style: italic;
-        text-decoration: none;
         float: right;
         font-weight: 300;
     }
