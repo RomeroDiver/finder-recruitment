@@ -8,7 +8,7 @@ export default ({ filters, values, onChange }) => {
         return (
           <label key={index}>
             {animal}
-            <input type="checkbox" value={animal} checked={values[animal]} onChange={(e) => onChange(e, animal)} />
+            <input type="checkbox" checked={values[animal]} onChange={(e) => onChange(e, animal)} />
           </label>
         )
       })}

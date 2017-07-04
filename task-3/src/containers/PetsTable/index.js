@@ -39,7 +39,8 @@ class PetsTable extends Component {
     filters: {
       price: undefined,
       animals: animals.reduce((acc, animal) => {
-        return Object.assign(acc, { animal: false })
+        acc[animal] = false;
+        return acc;
       }, {}),
     },
     sortBy: '',
@@ -63,8 +64,7 @@ class PetsTable extends Component {
       });
   };
 
-  onAnimalFilterChange = (e) => {
-    const property = e.target.value;
+  onAnimalFilterChange = (e, animal) => {
     const isChecked = e.target.checked;
     this.setState(
       state => {
@@ -74,7 +74,7 @@ class PetsTable extends Component {
             ...state.filters,
             animals: {
               ...state.filters.animals,
-              [property]: isChecked
+              [animal]: isChecked
             },
           },
         };
