@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { fetchPets, filterPetsByPrice, filterPetsByAnimal, sortPetsBy } from '../../reducers/pets';
+import { fetchPets, filterPets, sortPetsBy } from '../../reducers/pets';
 import ErrorMessage from '../../components/ErrorMessage';
 import Table from '../../components/Table';
 import PetsAnimalFilter from '../../components/PetsAnimalFilter';
@@ -38,7 +38,14 @@ class PetsTable extends Component {
   state = {
     filters: {
       price: undefined,
-      animal: undefined,
+      animals: {
+        bird: false, 
+        cat: false,
+        dog: false,
+        turtle: false,
+        pig: false,
+        capybara: false
+      },
     },
     sortBy: '',
   };
@@ -58,26 +65,27 @@ class PetsTable extends Component {
             price,
           },
         };
-      },
-      () => this.props.filterPetsByPrice(price)
-    );
+      });
   };
 
-  onAnimalFilterChange = e => {
-    const animal = e.target.parentElement.textContent;
+  onAnimalFilterChange = (e, property) => {
+    const val = e.target.value;
     this.setState(
       state => {
         return {
           ...state,
           filters: {
             ...state.filters,
-            animal,
+            animals: {
+              ...state.filters.animals,
+              [property]: val
+            },
           },
         };
-      },
-      () => this.props.filterPetsByAnimal(animal)
-    );
+      });
   };
+
+  filterAnimals = () => this.props.filterPets(this.state.filters)
 
   onSortByChange = e => {
     const sortBy = e.target.value;
@@ -101,10 +109,12 @@ class PetsTable extends Component {
           <h2>Filters</h2>
           <PetsAnimalFilter
             filters={['Bird', 'Cat', 'Dog', 'Turtle', 'Pig', 'Capybara']}
-            value={this.state.filters.animal}
+            values={this.state.filters.animals}
             onChange={this.onAnimalFilterChange}
           />
           <PetsPriceFilter min={10} max={1000} value={this.state.filters.price} onChange={this.onPriceFilterChange} />
+          <button onClick={this.filterAnimals}>Filter</button>
+        
         </div>
         <div>
           <h2>Sort by</h2>
@@ -133,8 +143,7 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       fetchPets,
-      filterPetsByPrice,
-      filterPetsByAnimal,
+      filterPets,
       sortPetsBy,
     },
     dispatch

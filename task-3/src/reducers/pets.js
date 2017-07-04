@@ -2,17 +2,11 @@ import { petService } from '../service';
 
 export const FETCH_PETS = 'pets/FETCH_PETS';
 export const FETCH_PETS_ERROR = 'pets/FETCH_PETS_ERROR';
-export const FILTER_PETS_BY_PRICE = 'pets/FILTER_PETS_BY_PRICE';
-export const FILTER_PETS_BY_ANIMAL = 'pets/FILTER_PETS_BY_ANIMAL';
+export const FILTER_PETS = 'pets/FILTER_PETS';
 export const SORT_PETS = 'pets/SORT_PETS';
 
-export const filterPetsByPriceAction = filteredPets => ({
-  type: FILTER_PETS_BY_PRICE,
-  payload: filteredPets,
-});
-
-export const filterPetsByAnimalAction = filteredPets => ({
-  type: FILTER_PETS_BY_ANIMAL,
+export const filterPetsAction = filteredPets => ({
+  type: FILTER_PETS,
   payload: filteredPets,
 });
 
@@ -42,23 +36,15 @@ export const fetchPets = () => dispatch => {
   );
 };
 
-export const filterPetsByPrice = filterVal => dispatch => {
+export const filterPets = filters => dispatch => {
   return petService.fetch().then(
     pets => {
-      const filteredPets = pets.filter(pet => pet.price === filterVal);
-      dispatch(filterPetsByPriceAction(filteredPets));
-    },
-    error => {
-      dispatch(fetchPetsErrorAction(error));
-    }
-  );
-};
-
-export const filterPetsByAnimal = filterVal => dispatch => {
-  return petService.fetch().then(
-    pets => {
-      const filteredPets = pets.filter(pet => pet.animal === filterVal);
-      dispatch(filterPetsByAnimalAction(filteredPets));
+      const filteredPets = pets.filter(pet => {
+        const isAnimalFiltered = filters.animals.indexOf(pet.animal) !== -1;
+        const isPriceFiltered = filters.price === pet.price;
+        return isAnimalFiltered && isPriceFiltered;
+      });
+      dispatch(filterPetsAction(filteredPets));
     },
     error => {
       dispatch(fetchPetsErrorAction(error));
@@ -92,8 +78,7 @@ const initialState = {
 export default function pets(state = initialState, action) {
   switch (action.type) {
     case FETCH_PETS:
-    case FILTER_PETS_BY_PRICE:
-    case FILTER_PETS_BY_ANIMAL:
+    case FILTER_PETS:
     case SORT_PETS:
       return {
         ...state,
