@@ -8,7 +8,7 @@ import Table from '../../components/Table';
 import PetsAnimalFilter from '../../components/PetsAnimalFilter';
 import PetsPriceFilter from '../../components/PetsPriceFilter';
 import { StyledTableCol } from '../../components/Table/styled-components';
-import { Container, Sorting, SortingLabel } from './styled-components';
+import { Container, Sorting, SortingLabel, FilterButton } from './styled-components';
 
 const petsTableColumns = ['Animal', 'Colour', 'Pattern', 'Rating', 'Price'];
 const animals = ['Bird', 'Cat', 'Dog', 'Turtle', 'Pig', 'Capybara'];
@@ -109,7 +109,7 @@ class PetsTable extends Component {
             onChange={this.onAnimalFilterChange}
           />
           <PetsPriceFilter min={10} max={1000} value={this.state.filters.price} onChange={this.onPriceFilterChange} />
-          <button onClick={this.filterAnimals}>Filter</button>
+          <FilterButton onClick={this.filterAnimals}>Filter</FilterButton>
 
         </div>
         <Sorting>
