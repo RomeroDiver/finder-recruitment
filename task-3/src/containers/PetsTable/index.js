@@ -8,10 +8,10 @@ import Table from '../../components/Table';
 import PetsAnimalFilter from '../../components/PetsAnimalFilter';
 import PetsPriceFilter from '../../components/PetsPriceFilter';
 import { StyledTableCol } from '../../components/Table/styled-components';
-import { Container } from './styled-components';
+import { Container, Sorting, SortingLabel } from './styled-components';
 
 const petsTableColumns = ['Animal', 'Colour', 'Pattern', 'Rating', 'Price'];
-
+const animals = ['Bird', 'Cat', 'Dog', 'Turtle', 'Pig', 'Capybara'];
 const renderPetsRow = (pet, index) => {
   return (
     <tr key={index}>
@@ -38,14 +38,9 @@ class PetsTable extends Component {
   state = {
     filters: {
       price: undefined,
-      animals: {
-        bird: false, 
-        cat: false,
-        dog: false,
-        turtle: false,
-        pig: false,
-        capybara: false
-      },
+      animals: animals.reduce((acc, animal) => {
+        return Object.assign(acc, { animal: false })
+      }, {}),
     },
     sortBy: '',
   };
@@ -68,8 +63,9 @@ class PetsTable extends Component {
       });
   };
 
-  onAnimalFilterChange = (e, property) => {
-    const val = e.target.value;
+  onAnimalFilterChange = (e) => {
+    const property = e.target.value;
+    const isChecked = e.target.checked;
     this.setState(
       state => {
         return {
@@ -78,7 +74,7 @@ class PetsTable extends Component {
             ...state.filters,
             animals: {
               ...state.filters.animals,
-              [property]: val
+              [property]: isChecked
             },
           },
         };
@@ -108,23 +104,23 @@ class PetsTable extends Component {
         <div>
           <h2>Filters</h2>
           <PetsAnimalFilter
-            filters={['Bird', 'Cat', 'Dog', 'Turtle', 'Pig', 'Capybara']}
+            filters={animals}
             values={this.state.filters.animals}
             onChange={this.onAnimalFilterChange}
           />
           <PetsPriceFilter min={10} max={1000} value={this.state.filters.price} onChange={this.onPriceFilterChange} />
           <button onClick={this.filterAnimals}>Filter</button>
-        
+
         </div>
-        <div>
-          <h2>Sort by</h2>
-          <select value={this.state.filters} onChange={this.onSortByChange}>
+        <Sorting>
+          <SortingLabel>Sort by</SortingLabel>
+          <select value={this.state.sortBy} onChange={this.onSortByChange}>
             <option value="-rating">Rating: from highest</option>
             <option value="+rating">Rating: frow lowest</option>
             <option value="-price">Price: from highest</option>
             <option value="+price">Price: from lowest</option>
           </select>
-        </div>
+        </Sorting>
         <Table columns={petsTableColumns}>
           {pets.map(renderPetsRow)}
         </Table>

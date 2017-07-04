@@ -40,8 +40,8 @@ export const filterPets = filters => dispatch => {
   return petService.fetch().then(
     pets => {
       const filteredPets = pets.filter(pet => {
-        const isAnimalFiltered = filters.animals.indexOf(pet.animal) !== -1;
-        const isPriceFiltered = filters.price === pet.price;
+        const isAnimalFiltered = filters.animals[pet.animal] === true;
+        const isPriceFiltered = filters.price ? filters.price === pet.price : true;
         return isAnimalFiltered && isPriceFiltered;
       });
       dispatch(filterPetsAction(filteredPets));
@@ -78,11 +78,15 @@ const initialState = {
 export default function pets(state = initialState, action) {
   switch (action.type) {
     case FETCH_PETS:
+      return {
+        ...state,
+        list: [...state.list, ...action.payload],
+      };
     case FILTER_PETS:
     case SORT_PETS:
       return {
         ...state,
-        list: [...state.list, ...action.payload],
+        list: [...action.payload],
       };
     case FETCH_PETS_ERROR:
       return {
