@@ -109,3 +109,17 @@
     color: #1591FE; }
     .btn--secondary:hover {
       background-color: #e6e6e6; }
+
+html, body {
+  height: 100%;
+  width: 100%; }
+
+body {
+  margin: 0;
+  padding: 0; }
+
+ul {
+  margin: 0; }
+
+body {
+  font-family: 'Roboto Condensed', sans-serif; }

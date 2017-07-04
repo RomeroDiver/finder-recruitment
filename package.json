@@ -1,0 +1,22 @@
+{
+  "name": "finder-recruitment",
+  "version": "1.0.0",
+  "description": "Recruitment tasks for finder.com.au",
+  "main": "index.js",
+  "scripts": {
+    "task-1": "cd task-1 && npm install && npm run styles && npm start",
+    "task-2": "cd task-2 && npm install && npm run styles && npm start",
+    "task-3": "cd task-3 && npm install && npm start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RomeroDiver/finder-recruitment.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RomeroDiver/finder-recruitment/issues"
+  },
+  "homepage": "https://github.com/RomeroDiver/finder-recruitment#readme"
+}
