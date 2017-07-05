@@ -8,6 +8,7 @@ import Table from '../../components/Table';
 import PetsAnimalFilter from '../../components/PetsAnimalFilter';
 import PetsPriceFilter from '../../components/PetsPriceFilter';
 import { StyledTableCol } from '../../components/Table/styled-components';
+import LoadingBar from '../../components/LoadingBar';
 import { Container, Sorting, SortingLabel, FilterButton } from './styled-components';
 
 const petsTableColumns = ['Animal', 'Colour', 'Pattern', 'Rating', 'Price'];
@@ -100,7 +101,7 @@ class PetsTable extends Component {
   };
 
   render() {
-    const { pets, error } = this.props;
+    const { pets, error, isLoading } = this.props;
     const { filters } = this.state;
     if (error) {
       return (
@@ -134,9 +135,13 @@ class PetsTable extends Component {
             <option value="+price">Price: from lowest</option>
           </select>
         </Sorting>
-        <Table columns={petsTableColumns}>
-          {pets.map(renderPetsRow)}
-        </Table>
+        {isLoading ?
+          <LoadingBar />
+          :
+          <Table columns={petsTableColumns}>
+            {pets.map(renderPetsRow)}
+          </Table>
+        }
       </Container>
     );
   }
@@ -145,7 +150,7 @@ class PetsTable extends Component {
 const mapStateToProps = state => ({
   pets: state.pets.list,
   error: state.pets.error,
-  priceFilterValue: state.pets.filter.price,
+  isLoading: state.pets.isLoadingList
 });
 
 const mapDispatchToProps = dispatch =>
