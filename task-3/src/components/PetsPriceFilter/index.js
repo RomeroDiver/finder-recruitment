@@ -1,17 +1,22 @@
 import React from 'react';
+import { RangeContainer, RangeLabel } from './styled-components';
 
-export default ({ value, onChange, min, max }) => {
-  console.log('Range: ', value)
-  const inputVal = value || min;
+export default ({ minValue, maxValue, onChange, min, max }) => {
   return (
     <div>
       <p>Select price</p>
-      <p>{inputVal}</p>
-      <span>
-        {min}
-      </span>
-      <input type="range" min={min} max={max} step={1} value={inputVal} onChange={onChange} />
-      <span>{max}</span>
+      <RangeContainer>
+        <RangeLabel>
+          <span>From</span> {minValue}
+        </RangeLabel>
+        <input type="range" min={min} max={max} step={1} value={minValue} onChange={(e) => onChange(e, 'minValue')} />
+      </RangeContainer>
+      <RangeContainer>
+        <RangeLabel>
+          <span>To</span> {maxValue}
+        </RangeLabel>
+        <input type="range" min={min} max={max} step={1} value={maxValue} onChange={(e) => onChange(e, 'maxValue')} />
+      </RangeContainer>
     </div>
   );
 };

@@ -12,6 +12,9 @@ import { Container, Sorting, SortingLabel, FilterButton } from './styled-compone
 
 const petsTableColumns = ['Animal', 'Colour', 'Pattern', 'Rating', 'Price'];
 const animals = ['Bird', 'Cat', 'Dog', 'Turtle', 'Pig', 'Capybara'];
+const minPrice = 10;
+const maxPrice = 1000;
+
 const renderPetsRow = (pet, index) => {
   return (
     <tr key={index}>
@@ -37,9 +40,12 @@ const renderPetsRow = (pet, index) => {
 class PetsTable extends Component {
   state = {
     filters: {
-      price: undefined,
+      price: {
+        minValue: minPrice,
+        maxValue: maxPrice
+      },
       animals: animals.reduce((acc, animal) => {
-        acc[animal] = false;
+        acc[animal] = true;
         return acc;
       }, {}),
     },
@@ -50,7 +56,7 @@ class PetsTable extends Component {
     this.props.fetchPets();
   }
 
-  onPriceFilterChange = e => {
+  onPriceFilterChange = (e, priceFilterType) => {
     const price = e.target.value;
     this.setState(
       state => {
@@ -58,7 +64,10 @@ class PetsTable extends Component {
           ...state,
           filters: {
             ...state.filters,
-            price,
+            price: {
+              ...state.filters.price,
+              [priceFilterType]: price
+            },
           },
         };
       });
@@ -92,6 +101,7 @@ class PetsTable extends Component {
 
   render() {
     const { pets, error } = this.props;
+    const { filters } = this.state;
     if (error) {
       return (
         <ErrorMessage>
@@ -105,10 +115,13 @@ class PetsTable extends Component {
           <h2>Filters</h2>
           <PetsAnimalFilter
             filters={animals}
-            values={this.state.filters.animals}
+            values={filters.animals}
             onChange={this.onAnimalFilterChange}
           />
-          <PetsPriceFilter min={10} max={1000} value={this.state.filters.price} onChange={this.onPriceFilterChange} />
+          <PetsPriceFilter min={minPrice} max={maxPrice}
+            minValue={filters.price.minValue}
+            maxValue={filters.price.maxValue}
+            onChange={this.onPriceFilterChange} />
           <FilterButton onClick={this.filterAnimals}>Filter</FilterButton>
 
         </div>

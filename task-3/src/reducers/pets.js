@@ -36,12 +36,15 @@ export const fetchPets = () => dispatch => {
   );
 };
 
+const filterPrice = (price, filters) => price >= filters.minValue && price <= filters.maxValue;
+
 export const filterPets = filters => dispatch => {
   return petService.fetch().then(
     pets => {
+      console.log('Pets: ', pets.map(pet => pet.price));
       const filteredPets = pets.filter(pet => {
         const isAnimalFiltered = filters.animals[pet.animal] === true;
-        const isPriceFiltered = filters.price ? filters.price === pet.price : true;
+        const isPriceFiltered = filters.price && filterPrice(pet.price, filters.price);
         return isAnimalFiltered && isPriceFiltered;
       });
       dispatch(filterPetsAction(filteredPets));
