@@ -1,24 +1,37 @@
 
+import configureMockStore from 'redux-mock-store'
+import thunk from 'redux-thunk'
+import { stub } from 'sinon';
+
+import * as services from '../service';
 import reducer from './pets';
 import {
+  FINISHED_REQUEST,
+  STARTED_REQUEST,
   FETCH_PETS,
   FETCH_PETS_ERROR,
   FILTER_PETS,
   SORT_PETS,
 
-  fetchPetsAction
+  fetchPetsAction,
+  fetchPets,
+  sortPetsBy,
+  filterPets,
 } from './pets';
 
+const middlewares = [thunk];
+const mockStore = configureMockStore(middlewares);
+stub(services.petService, 'fetch').callsFake(() => Promise.resolve([]));
+
 describe('Pets reducer', () =>{
+  const defaultState = {
+    list: [],
+    error: null,
+    filter: {},
+  };
 
   it('returns state by default', () => {
-    const state = {
-      list: [],
-      error: null,
-      filter: {},
-    };
-
-    expect(reducer(state, { type: '' })).toEqual(state);
+    expect(reducer(defaultState, { type: '' })).toEqual(defaultState);
   });
 
   describe(`action ${FETCH_PETS}`, () => {
@@ -28,11 +41,6 @@ describe('Pets reducer', () =>{
         { animal: 'Lion' },
         { animal: 'Bird' }
       ]
-      const previousState = {
-        list: [],
-        error: null,
-        filter: {},
-      };
       const newState = {
         list: [ ...payload ],
         error: null,
@@ -40,7 +48,7 @@ describe('Pets reducer', () =>{
       }
 
 
-      expect(reducer(previousState, fetchPetsAction(payload))).toEqual(newState);
+      expect(reducer(defaultState, fetchPetsAction(payload))).toEqual(newState);
     });
 
     it('return a list of fetched pets with already fetched pets', () => {
@@ -61,24 +69,49 @@ describe('Pets reducer', () =>{
 
       expect(reducer(previousState, fetchPetsAction(payload))).toEqual(newState);
     });
-    
-  });
-
-
-
-  it('', () => {
 
   });
 
-  it('', () => {
-
+  describe(`async action fetchPets`, () => {
+    it('should dispatch 3 actions when fetching was successful', (done) => {
+      const store = mockStore({ pets: defaultState });
+      const expectedActions = [
+        { type: STARTED_REQUEST },
+        { type: FINISHED_REQUEST },
+        { type: FETCH_PETS, payload: [] }
+      ]
+      return store.dispatch(fetchPets()).then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+        done();
+      })
+    });
   });
 
-  it('', () => {
-
+  describe(`async action filterPets`, () => {
+    it('should dispatch 3 actions when filtering was successful', () => {
+      const store = mockStore({ pets: defaultState });
+      const expectedActions = [
+        { type: STARTED_REQUEST },
+        { type: FINISHED_REQUEST },
+        { type: FILTER_PETS, payload: [] }
+      ]
+      return store.dispatch(filterPets()).then(() => {
+        expect(store.getActions()).toEqual(expectedActions)
+      })
+    });
   });
 
-  it('', () => {
-
+  describe(`async action sortPetsBy`, () => {
+    it.only('should dispatch 3 actions when sorting was successful', () => {
+      const store = mockStore({ pets: defaultState });
+      const expectedActions = [
+        { type: STARTED_REQUEST },
+        { type: FINISHED_REQUEST },
+        { type: SORT_PETS, payload: [] }
+      ]
+      return store.dispatch(sortPetsBy('+price')).then(() => {
+        expect(store.getActions()).toEqual(expectedActions)
+      })
+    });
   });
 });
