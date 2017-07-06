@@ -5,7 +5,7 @@ import { Thead, StyledHeadTh, StyledTable } from './styled-components';
 
 const Table = ({ columns, children }) => {
   if (!children.length) {
-    return <div>The table is empty</div>
+    return <div>The table is empty</div>;
   }
   return (
     <StyledTable>

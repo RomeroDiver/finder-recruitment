@@ -10,7 +10,6 @@ export const STARTED_REQUEST = 'pets/STARTED_REQUEST';
 export const startRequest = () => ({ type: STARTED_REQUEST });
 export const finishRequest = () => ({ type: FINISHED_REQUEST });
 
-
 export const filterPetsAction = filteredPets => ({
   type: FILTER_PETS,
   payload: filteredPets,
@@ -89,20 +88,20 @@ export const sortPetsBy = sortVal => dispatch => {
 
 const initialState = {
   list: [],
-  error: null
+  error: null,
 };
 export default function pets(state = initialState, action) {
   switch (action.type) {
     case STARTED_REQUEST:
       return {
         ...state,
-        isLoadingList: true
+        isLoadingList: true,
       };
     case FINISHED_REQUEST:
       return {
         ...state,
-        isLoadingList: false
-      }
+        isLoadingList: false,
+      };
     case FETCH_PETS:
       return {
         ...state,

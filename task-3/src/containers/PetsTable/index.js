@@ -43,7 +43,7 @@ class PetsTable extends Component {
     filters: {
       price: {
         minValue: minPrice,
-        maxValue: maxPrice
+        maxValue: maxPrice,
       },
       animals: animals.reduce((acc, animal) => {
         acc[animal] = true;
@@ -59,39 +59,37 @@ class PetsTable extends Component {
 
   onPriceFilterChange = (e, priceFilterType) => {
     const price = e.target.value;
-    this.setState(
-      state => {
-        return {
-          ...state,
-          filters: {
-            ...state.filters,
-            price: {
-              ...state.filters.price,
-              [priceFilterType]: price
-            },
+    this.setState(state => {
+      return {
+        ...state,
+        filters: {
+          ...state.filters,
+          price: {
+            ...state.filters.price,
+            [priceFilterType]: price,
           },
-        };
-      });
+        },
+      };
+    });
   };
 
   onAnimalFilterChange = (e, animal) => {
     const isChecked = e.target.checked;
-    this.setState(
-      state => {
-        return {
-          ...state,
-          filters: {
-            ...state.filters,
-            animals: {
-              ...state.filters.animals,
-              [animal]: isChecked
-            },
+    this.setState(state => {
+      return {
+        ...state,
+        filters: {
+          ...state.filters,
+          animals: {
+            ...state.filters.animals,
+            [animal]: isChecked,
           },
-        };
-      });
+        },
+      };
+    });
   };
 
-  filterAnimals = () => this.props.filterPets(this.state.filters)
+  filterAnimals = () => this.props.filterPets(this.state.filters);
 
   onSortByChange = e => {
     const sortBy = e.target.value;
@@ -114,17 +112,15 @@ class PetsTable extends Component {
       <Container>
         <div>
           <h2>Filters</h2>
-          <PetsAnimalFilter
-            filters={animals}
-            values={filters.animals}
-            onChange={this.onAnimalFilterChange}
-          />
-          <PetsPriceFilter min={minPrice} max={maxPrice}
+          <PetsAnimalFilter filters={animals} values={filters.animals} onChange={this.onAnimalFilterChange} />
+          <PetsPriceFilter
+            min={minPrice}
+            max={maxPrice}
             minValue={filters.price.minValue}
             maxValue={filters.price.maxValue}
-            onChange={this.onPriceFilterChange} />
+            onChange={this.onPriceFilterChange}
+          />
           <FilterButton onClick={this.filterAnimals}>Filter</FilterButton>
-
         </div>
         <Sorting>
           <SortingLabel>Sort by</SortingLabel>
@@ -135,13 +131,11 @@ class PetsTable extends Component {
             <option value="+price">Price: from lowest</option>
           </select>
         </Sorting>
-        {isLoading ?
-          <LoadingBar />
-          :
-          <Table columns={petsTableColumns}>
-            {pets.map(renderPetsRow)}
-          </Table>
-        }
+        {isLoading
+          ? <LoadingBar />
+          : <Table columns={petsTableColumns}>
+              {pets.map(renderPetsRow)}
+            </Table>}
       </Container>
     );
   }
@@ -150,7 +144,7 @@ class PetsTable extends Component {
 const mapStateToProps = state => ({
   pets: state.pets.list,
   error: state.pets.error,
-  isLoading: state.pets.isLoadingList
+  isLoading: state.pets.isLoadingList,
 });
 
 const mapDispatchToProps = dispatch =>

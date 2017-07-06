@@ -9,13 +9,13 @@ export default ({ minValue, maxValue, onChange, min, max }) => {
         <RangeLabel>
           <span>From</span> {minValue}
         </RangeLabel>
-        <input type="range" min={min} max={max} step={1} value={minValue} onChange={(e) => onChange(e, 'minValue')} />
+        <input type="range" min={min} max={max} step={1} value={minValue} onChange={e => onChange(e, 'minValue')} />
       </RangeContainer>
       <RangeContainer>
         <RangeLabel>
           <span>To</span> {maxValue}
         </RangeLabel>
-        <input type="range" min={min} max={max} step={1} value={maxValue} onChange={(e) => onChange(e, 'maxValue')} />
+        <input type="range" min={min} max={max} step={1} value={maxValue} onChange={e => onChange(e, 'maxValue')} />
       </RangeContainer>
     </div>
   );

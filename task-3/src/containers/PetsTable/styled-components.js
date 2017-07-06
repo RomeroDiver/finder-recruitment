@@ -16,7 +16,7 @@ export const Sorting = styled.div`
 export const SortingLabel = styled.span`
   padding-right: 0.6rem;
   font-weight: 300;
-`
+`;
 export const FilterButton = styled.button`
   color: #333;
   background-color: #fff;
